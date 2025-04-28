@@ -1,0 +1,17 @@
+{
+  "name": "mercado",
+  "version": "1.0.0",
+  "description": "Framework para automatizacion de pruebas mercadolibre",
+  "main": "index.js",
+  "scripts": {
+    "test": "cucumber-js"
+  },
+  "author": "Raul",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "^24.7.2"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.2.0"
+  }
+}

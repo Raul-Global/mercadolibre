@@ -4,6 +4,7 @@ import { Given, When, Then } from "@cucumber/cucumber"
 
 let browser, page;
 let productos = [];
+let precios = [];
 let p1;
 Given  ('Enter the website', async function () {
 browser = await puppeteer.launch({ headless: false });
@@ -43,7 +44,8 @@ await page.keyboard.press("Enter");
   
   Then("Order by mayor a menor precio", async function () {
 
-    await page.waitForSelector("::-p-xpath(//span[contains(@class,'andes-dropdown__display-values')])") ; 
+    const elemt =await page.waitForSelector("::-p-xpath(//span[contains(@class,'andes-dropdown__display-values')])"); 
+    elemt.click ();
     const elemt2 = await page.waitForSelector("::-p-xpath(//li[contains(@class,'andes-list__item andes-list__item--size-medium')]//span[contains(text(),'Mayor')])"); 
     elemt2.click ();
   });
@@ -53,27 +55,42 @@ await page.keyboard.press("Enter");
     var element = await page.waitForSelector("::-p-xpath((//a[contains(@class,'poly-component__title')])[1])");
     let name = await element.evaluate(el => el.textContent);
     productos.push(name); 
-    console.log("-----------VALOR: "+name+"-----------------");
+    var elementPrice = await page.waitForSelector("::-p-xpath((//div [contains(@class,'poly-content')]//div[contains(@class,'poly-content__column')]//div//span[contains(@class,'andes-money-amount__fraction')])[1])");
+    var price = await elementPrice.evaluate(el => el.textContent);
+    precios.push(price);
+    console.log("-----------VALOR: "+name+"-----------------"+price);
     
     element =await page.waitForSelector("::-p-xpath((//a[contains(@class,'poly-component__title')])[2])");
     name = await element.evaluate(el => el.textContent);
     productos.push(name); 
-    console.log("-----------VALOR: "+name+"-----------------");
+    elementPrice = await page.waitForSelector("::-p-xpath((//div [contains(@class,'poly-content')]//div[contains(@class,'poly-content__column')]//div//span[contains(@class,'andes-money-amount__fraction')])[5])");
+    price = await elementPrice.evaluate(el => el.textContent);
+    precios.push(price);
+    console.log("-----------VALOR: "+name+"-----------------"+price);
 
-    element =await page.waitForSelector("::-p-xpath((//a[contains(@class,'poly-component__title')])[3])");
+    element =await page.waitForSelector("::-p-xpath((//a[contains(@class,'poly-component__title')])[2])");
     name = await element.evaluate(el => el.textContent);
     productos.push(name); 
-    console.log("-----------VALOR: "+name+"-----------------");
+    elementPrice = await page.waitForSelector("::-p-xpath((//div [contains(@class,'poly-content')]//div[contains(@class,'poly-content__column')]//div//span[contains(@class,'andes-money-amount__fraction')])[7])");
+    price = await elementPrice.evaluate(el => el.textContent);
+    precios.push(price);
+    console.log("-----------VALOR: "+name+"-----------------"+price);
 
-    element =await page.waitForSelector("::-p-xpath((//a[contains(@class,'poly-component__title')])[4])");
+    element =await page.waitForSelector("::-p-xpath((//a[contains(@class,'poly-component__title')])[2])");
     name = await element.evaluate(el => el.textContent);
     productos.push(name); 
-    console.log("-----------VALOR: "+name+"-----------------");
+    elementPrice = await page.waitForSelector("::-p-xpath((//div [contains(@class,'poly-content')]//div[contains(@class,'poly-content__column')]//div//span[contains(@class,'andes-money-amount__fraction')])[10])");
+    price = await elementPrice.evaluate(el => el.textContent);
+    precios.push(price);
+    console.log("-----------VALOR: "+name+"-----------------"+price);
 
-    element =await page.waitForSelector("::-p-xpath((//a[contains(@class,'poly-component__title')])[5])");
+    element =await page.waitForSelector("::-p-xpath((//a[contains(@class,'poly-component__title')])[2])");
     name = await element.evaluate(el => el.textContent);
     productos.push(name); 
-    console.log("-----------VALOR: "+name+"-----------------");
+    elementPrice = await page.waitForSelector("::-p-xpath((//div [contains(@class,'poly-content')]//div[contains(@class,'poly-content__column')]//div//span[contains(@class,'andes-money-amount__fraction')])[12])");
+    price = await elementPrice.evaluate(el => el.textContent);
+    precios.push(price);
+    console.log("-----------VALOR: "+name+"-----------------"+price);
     
   
   });
@@ -82,7 +99,8 @@ await page.keyboard.press("Enter");
   Then("Print these products in the console", function () {
     // Write code here that turns the phrase above into concrete actions
     return productos.forEach((producto, index) => {
-      console.log(`Producto ${index + 1}: ${producto}`);
-    });
+      console.log(`Producto ${index + 1}: ${producto} precio : ${precios[index]}`);
+
+      });
   });
 
